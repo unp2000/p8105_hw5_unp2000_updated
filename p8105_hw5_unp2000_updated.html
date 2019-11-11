@@ -397,6 +397,21 @@ iris_with_missing = iris %&gt;%
   map_df(~replace(.x, sample(1:150, 20), NA)) %&gt;%
   mutate(Species = as.character(Species)) %&gt;%
   janitor::clean_names ()</code></pre>
+<pre class="r"><code>fxn = function(x) { 
+  
+    if (is.numeric(x)) {
+      
+    replace_na(x, round(mean(x, na.rm = TRUE)))
+    
+    }
+  
+    else if (is.character(x)) {
+    
+    replace_na(x, &quot;virginica&quot;)
+    
+    } 
+}
+iris_complete = map_df(iris_with_missing, fxn)</code></pre>
 </div>
 
 
